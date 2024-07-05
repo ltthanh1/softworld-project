@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - api
+
+  api:
+    image: directus/directus
+    ports:
+      - '8055:8055'
+    volumes:
+      - ./directus:/directus/uploads
+    environment:
+      - KEY=your-secret-key
